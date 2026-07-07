@@ -1,0 +1,16 @@
+{
+  "name": "ru_emoji",
+  "segmentation": {
+    "type": "mmseg",
+    "dict": {
+      "type": "text",
+      "file": "ru_emoji.txt"
+    }
+  },
+  "conversion_chain": [{
+    "dict": {
+      "type": "text",
+      "file": "ru_emoji.txt"
+    }
+  }]
+}

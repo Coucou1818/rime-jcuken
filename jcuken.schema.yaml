@@ -1,0 +1,96 @@
+# Rime schema
+# encoding: utf-8
+
+schema:
+  schema_id: jcuken
+  name: "Русский (ЙЦУКЕН)"
+  version: "1.0"
+  author:
+    - Antigravity
+  description: |
+    标准俄文物理键盘 (ЙЦУКЕН)
+    内置1万高频俄语词库 + Emoji 联想
+    无缝支持生僻词纯字母输入
+
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: [ 俄文, 英文 ]
+  - name: ru_emoji
+    reset: 1
+    states: [ 🈚, 🐕 ]
+
+engine:
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - table_translator
+    - lua_translator@ru_literal
+  filters:
+    - simplifier@ru_emoji
+    - uniquifier
+
+speller:
+  alphabet: 'abcdefghijklmnopqrstuvwxyz[];'',.`'
+  delimiter: " "
+
+ru_emoji:
+  opencc_config: ru_emoji.json
+  option_name: ru_emoji
+
+translator:
+  dictionary: jcuken
+  enable_user_dict: true
+  enable_completion: true
+  enable_sentence: false
+  spelling_hints: 0
+  comment_format:
+    - xform/.*//
+
+punctuator:
+  half_shape:
+    "@": '"'
+    "#": "№"
+    "$": ";"
+    "%": "%"
+    "^": ":"
+    "&": "?"
+    "*": "*"
+    "(": "("
+    ")": ")"
+    "-": "-"
+    "_": "_"
+    "+": "+"
+    "=": "="
+    "|": "/"
+    "\\": "\\"
+    "{": "Х"
+    "}": "Ъ"
+    ":": "Ж"
+    "\"": "Э"
+    "<": "Б"
+    ">": "Ю"
+    "?": ","
+    "/": "."
+
+key_binder:
+  import_preset: default
+  bindings:
+    - { when: always, accept: Control+Shift+E, toggle: ru_emoji }
+
+recognizer:
+  import_preset: default
